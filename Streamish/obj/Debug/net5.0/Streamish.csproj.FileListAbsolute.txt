@@ -83,3 +83,4 @@ C:\Users\logan\workspace\Streamish\Streamish\obj\Debug\net5.0\refint\Streamish.d
 C:\Users\logan\workspace\Streamish\Streamish\obj\Debug\net5.0\Streamish.pdb
 C:\Users\logan\workspace\Streamish\Streamish\obj\Debug\net5.0\Streamish.genruntimeconfig.cache
 C:\Users\logan\workspace\Streamish\Streamish\obj\Debug\net5.0\ref\Streamish.dll
+C:\Users\logan\workspace\Streamish\Streamish\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Streamish.Models;
 using Streamish.Repositories;
@@ -7,6 +8,7 @@ namespace Streamish.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserProfileController : ControllerBase
     {
         private readonly IUserProfileRepository _userProfileRepository;
@@ -29,6 +31,19 @@ namespace Streamish.Controllers
             {
                 return NotFound();
             }
+            return Ok(userProfile);
+        }
+
+        [HttpGet("GetByFirebaseUserId/{firebaseUserId}")]
+        public IActionResult GetByFirebaseUserId(string firebaseUserId)
+        {
+            var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
             return Ok(userProfile);
         }
 
