@@ -26,7 +26,10 @@ const Header = ({ isLoggedIn, userProfile }) => {
                                 </Link>
                             </li>
                         </div>
-                        <li>
+                        <li className="d-flex">
+                            <div className="nav-link">
+                                {userProfile?.name}
+                            </div>
                             <Link onClick={(e) => logout()} className="nav-link align-self-end pe-4">
                                 Logout
                             </Link>
