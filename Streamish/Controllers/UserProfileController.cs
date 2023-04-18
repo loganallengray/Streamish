@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Streamish.Models;
 using Streamish.Repositories;
+using System.Security.Claims;
 
 namespace Streamish.Controllers
 {
@@ -31,19 +32,6 @@ namespace Streamish.Controllers
             {
                 return NotFound();
             }
-            return Ok(userProfile);
-        }
-
-        [HttpGet("GetByFirebaseUserId/{firebaseUserId}")]
-        public IActionResult GetByFirebaseUserId(string firebaseUserId)
-        {
-            var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
-
-            if (userProfile == null)
-            {
-                return NotFound();
-            }
-
             return Ok(userProfile);
         }
 
@@ -82,6 +70,54 @@ namespace Streamish.Controllers
         {
             _userProfileRepository.Delete(id);
             return NoContent();
+        }
+
+        [HttpGet("{firebaseUserId}")]
+        public IActionResult GetByFirebaseUserId(string firebaseUserId)
+        {
+            var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+            return Ok(userProfile);
+        }
+
+        [HttpGet("Me")]
+        public IActionResult Me()
+        {
+            var userProfile = GetCurrentUserProfile();
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userProfile);
+        }
+
+        [HttpGet("DoesUserExist/{firebaseUserId}")]
+        public IActionResult DoesUserExist(string firebaseUserId)
+        {
+            var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+
+        [HttpPost("Register")]
+        public IActionResult Register(UserProfile userProfile)
+        {
+            _userProfileRepository.Add(userProfile);
+            return CreatedAtAction(
+                nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }

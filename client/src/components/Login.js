@@ -17,7 +17,7 @@ export default function Login() {
     };
 
     return (
-        <Form onSubmit={loginSubmit}>
+        <Form onSubmit={loginSubmit} className="ps-5 pe-5 pt-2">
             <fieldset>
                 <FormGroup>
                     <Label for="email">Email</Label>

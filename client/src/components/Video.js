@@ -4,7 +4,7 @@ import { Card, CardBody } from "reactstrap";
 
 const Video = ({ video }) => {
     return (
-        <Card>
+        <Card className="mb-3 p-2">
             <p className="text-left px-2">Posted by: {
                 <Link to={`/users/${video.userProfileId}`}>
                     <strong>{video.userProfile.name}</strong>

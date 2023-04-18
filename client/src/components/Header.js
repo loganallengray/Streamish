@@ -8,29 +8,31 @@ const Header = ({ isLoggedIn, userProfile }) => {
 
     return (
         <nav className="navbar navbar-expand navbar-dark bg-info">
-            <Link to="/" className="navbar-brand">
+            <Link to="/" className="navbar-brand ps-4">
                 StreamISH
             </Link>
-            <ul className="navbar-nav mr-auto">
+            <ul className="navbar-nav mr-auto justify-content-between w-100">
                 {isLoggedIn ?
                     <>
-                        <li className="nav-item">
-                            <Link to="/" className="nav-link">
-                                Feed
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/videos/add" className="nav-link">
-                                New Video
-                            </Link>
-                        </li>
+                        <div className="d-flex">
+                            <li className="nav-item">
+                                <Link to="/" className="nav-link">
+                                    Feed
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/videos/add" className="nav-link">
+                                    New Video
+                                </Link>
+                            </li>
+                        </div>
                         <li>
-                            <Link onClick={(e) => logout()} className="nav-link">
+                            <Link onClick={(e) => logout()} className="nav-link align-self-end pe-4">
                                 Logout
                             </Link>
                         </li>
                     </> :
-                    <>
+                    <div className="d-flex">
                         <li>
                             <Link to="/login" className="nav-link">
                                 Login
@@ -41,7 +43,7 @@ const Header = ({ isLoggedIn, userProfile }) => {
                                 Register
                             </Link>
                         </li>
-                    </>}
+                    </div>}
             </ul>
         </nav>
     );

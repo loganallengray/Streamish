@@ -10,7 +10,7 @@ import UserVideos from "./UserVideos";
 const ApplicationViews = ({ isLoggedIn }) => {
     return (
         <Routes>
-            <Route path="/" >
+            <Route path="/">
                 {<Route index element={isLoggedIn ? <VideoList /> : <Login />} />}
                 <Route path="videos">
                     <Route index element={isLoggedIn ? <VideoList /> : <Navigate to="/login" />} />

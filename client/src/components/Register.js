@@ -22,7 +22,7 @@ export default function Register() {
     };
 
     return (
-        <Form onSubmit={registerClick}>
+        <Form onSubmit={registerClick} className="ps-5 pe-5 pt-2">
             <fieldset>
                 <FormGroup>
                     <Label htmlFor="name">Name</Label>
