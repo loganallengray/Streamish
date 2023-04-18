@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Streamish.Models;
 using Streamish.Repositories;
+using System;
 using System.Security.Claims;
 
 namespace Streamish.Controllers
@@ -44,13 +45,6 @@ namespace Streamish.Controllers
                 return NotFound();
             }
             return Ok(userProfile);
-        }
-
-        [HttpPost]
-        public IActionResult Post(UserProfile userProfile)
-        {
-            _userProfileRepository.Add(userProfile);
-            return CreatedAtAction("Get", new { id = userProfile.Id }, userProfile);
         }
 
         [HttpPut("{id}")]
@@ -106,9 +100,18 @@ namespace Streamish.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult Post(UserProfile userProfile)
+        {
+            userProfile.DateCreated = DateTime.Now;
+            _userProfileRepository.Add(userProfile);
+            return CreatedAtAction("Get", new { id = userProfile.Id }, userProfile);
+        }
+
         [HttpPost("Register")]
         public IActionResult Register(UserProfile userProfile)
         {
+            userProfile.DateCreated = DateTime.Now;
             _userProfileRepository.Add(userProfile);
             return CreatedAtAction(
                 nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
